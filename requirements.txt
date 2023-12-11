@@ -1,3 +1,6 @@
 pytest-playwright
 playwright
 allure-pytest
+pluggy
+allure-pytest
+allure-python-commons
