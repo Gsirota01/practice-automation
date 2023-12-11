@@ -7,7 +7,7 @@ from pages.home_page import HomePage
 @pytest.fixture(scope="package")
 @allure.title("Setup Browser")
 def set_up(playwright : Playwright)-> None:
-    browser = playwright.chromium.launch(headless=False)
+    browser = playwright.chromium.launch(headless=True)
     browser_context = browser.new_context()
     browser_context.tracing.start(screenshots=True, snapshots=True, sources=True)
     page =  browser_context.new_page()
