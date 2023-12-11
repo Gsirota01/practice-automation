@@ -22,7 +22,7 @@ def set_up_section(playwright : Playwright, request)-> None:
     section_name = request.param
     allure.dynamic.title("Setup Browser and navigate to {} section".format(section_name))
     
-    browser = playwright.chromium.launch(headless=False)
+    browser = playwright.chromium.launch(headless=True)
     browser_context = browser.new_context()
     browser_context.tracing.start(screenshots=True, snapshots=True, sources=True)
     page =  browser_context.new_page()
