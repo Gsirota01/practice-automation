@@ -35,11 +35,11 @@ jobs:
         ls -la logs/
     #     allure generate reports/allure-report --clean
 
-    # - name: Archive Allure Report
-    #   uses: actions/upload-artifact@v3
-    #   with:
-    #     name: allure-report
-    #     path: reports/allure-report
+    - name: Archive Allure Report
+      uses: actions/upload-artifact@v3
+      with:
+        name: allure-report
+        path: reports/allure-report
         
     - name: Archive Playwright trace
       uses: actions/upload-artifact@v3
