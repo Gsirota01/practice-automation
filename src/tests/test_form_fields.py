@@ -7,7 +7,7 @@ global browser_context,page
 
 @allure.suite("Test Form Fields")
 @allure.description("The user navigates to the Form Fields page and verifies the form")
-@allure.link("https://practice-automation.com/","Website")
+@allure.link("https://practice-automation.com/form-fields","Website")
 @pytest.mark.parametrize("set_up_section", ["Form Fields"], indirect=True)
 @pytest.mark.form
 def test_form_fields(set_up_section):
