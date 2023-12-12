@@ -8,7 +8,7 @@ from pages.home_page import HomePage
 @allure.title("Setup Browser")
 def set_up(playwright : Playwright)-> None:
     browser = playwright.chromium.launch(headless=True)
-    browser_context = browser.new_context()
+    browser_context = browser.new_context(record_video_dir="reports/videos/")
     browser_context.tracing.start(screenshots=True, snapshots=True, sources=True)
     page =  browser_context.new_page()
     yield page
@@ -23,7 +23,7 @@ def set_up_section(playwright : Playwright, request)-> None:
     allure.dynamic.title("Setup Browser and navigate to {} section".format(section_name))
     
     browser = playwright.chromium.launch(headless=True)
-    browser_context = browser.new_context()
+    browser_context = browser.new_context(record_video_dir="reports/videos/")
     browser_context.tracing.start(screenshots=True, snapshots=True, sources=True)
     page =  browser_context.new_page()
 

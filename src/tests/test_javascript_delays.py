@@ -4,7 +4,8 @@ import pytest
 from pages.javascript_delays_page import JavascriptDelaysPage
 
 
-@allure.suite("Test Javascript Delays")
+@allure.suite("Javascript Delays")
+@allure.title("Test Javascript Delays")
 @allure.description("The user navigates to the Javascript Delays section and verifies the delay")
 @allure.link("https://practice-automation.com/javascript-delays","Website")
 @pytest.mark.delays
