@@ -7,8 +7,8 @@ class FormFieldsPage:
         self.water_checkbox = page.get_by_label("Water")
         self.wine_checkbox = page.get_by_label("Wine")
         self.red_radio_button = page.get_by_label("Red", exact=True)
-        self.have_siblings = page.locator("#g1103-doyouhaveanysiblings-button")
-        self.option_no = page.get_by_role("option", name="No")
+        self.have_siblings = page.locator("#g1103-doyouhaveanysiblings")
+        self.have_siblings_options = page.get_by_label("Do you have any siblings?")
         self.fast_animals_form = page.get_by_role("form")
         self.fast_animals_list = page.get_by_role("list")
         self.email_input = page.get_by_role("textbox", name="Email")
@@ -42,7 +42,7 @@ class FormFieldsPage:
     @allure.step("Complete have siblings")
     def complete_have_siblings(self):
         self.have_siblings.click()
-        self.option_no.click()    
+        self.have_siblings_options.select_option("No")    
     
     @allure.step("Validate animals list")
     def validate_animals_list(self):
