@@ -22,21 +22,21 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt 
         python -m playwright install --with-deps
-        wget https://github.com/allure-framework/allure2/releases/download/2.15.0/allure-2.15.0.tgz
-        tar -zxvf allure-2.15.0.tgz
-        sudo cp -R allure-2.15.0/bin /usr/bin/allure
-        export PATH=$PATH:/usr/bin/allure/bin
+        # wget https://github.com/allure-framework/allure2/releases/download/2.15.0/allure-2.15.0.tgz
+        # tar -zxvf allure-2.15.0.tgz
+        # sudo cp -R allure-2.15.0/bin /usr/bin/allure
+        # export PATH=$PATH:/usr/bin/allure/bin
 
-    - name: Run tests and Generate Allure Report
-      run: |
-        pytest
-        allure generate reports/allure-report --clean
+    # - name: Run tests and Generate Allure Report
+    #   run: |
+    #     pytest
+    #     allure generate reports/allure-report --clean
 
-    - name: Archive Allure Report
-      uses: actions/upload-artifact@v3
-      with:
-        name: allure-report
-        path: reports/allure-report
+    # - name: Archive Allure Report
+    #   uses: actions/upload-artifact@v3
+    #   with:
+    #     name: allure-report
+    #     path: reports/allure-report
         
     - name: Archive Playwright trace
       uses: actions/upload-artifact@v3
