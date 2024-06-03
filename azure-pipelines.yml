@@ -1,42 +1,48 @@
 trigger:
-  - master
+- master
 
 pool:
-  vmImage: ubuntu-latest  # Use an Ubuntu virtual agent
+  vmImage: 'ubuntu-latest'
 
-steps:
+jobs:
+- job: RunTestsAndUploadAllureReport
+  timeoutInMinutes: 60
+  steps:
+  - task: UsePythonVersion@0
+    inputs:
+      versionSpec: '3.11'
+    displayName: 'Set up Python 3.11'
+
   - script: |
       python -m pip install --upgrade pip
       pip install -r requirements.txt
       python -m playwright install --with-deps
-  displayName: Install dependencies
-
-  - script: |
       wget https://github.com/allure-framework/allure2/releases/download/2.25.0/allure-2.25.0.tgz
       tar -zxvf allure-2.25.0.tgz
       sudo cp -R allure-2.25.0/bin /usr/bin/allure
       export PATH=$PATH:/usr/bin/allure/bin
-  displayName: Set up Allure Framework
+    displayName: 'Install dependencies'
 
   - script: |
       pytest
-  displayName: Run tests
+      ls -la
+      ls -la reports/
+    displayName: 'Run tests and Generate Allure Report'
 
-  - script: |
-      allure generate reports/allure-report --clean
-  displayName: Generate Allure Report
+  - task: PublishBuildArtifacts@1
+    inputs:
+      pathToPublish: 'reports/allure-results'
+      artifactName: 'allure-results'
+    displayName: 'Archive Allure Report Results'
 
-  - script: |
-      ls -la reports/allure-results
-      ls -la reports/videos/*
-      ls -la logs/trace.zip  # For logging purposes
-  displayName: List generated artifacts
+  - task: PublishBuildArtifacts@1
+    inputs:
+      pathToPublish: 'reports/videos'
+      artifactName: 'videos'
+    displayName: 'Archive Playwright Videos'
 
-  - publish: $(System.DefaultWorkingDirectory)/reports/allure-results  # Publish Allure results
-    artifact: allure-results
-
-  - publish: $(System.DefaultWorkingDirectory)/reports/videos/*  # Publish video recordings
-    artifact: playwright-videos
-
-  - publish: $(System.DefaultWorkingDirectory)/logs/trace.zip  # Optionally publish logs (for debugging)
-    artifact: test-logs
+  - task: PublishBuildArtifacts@1
+    inputs:
+      pathToPublish: 'logs/trace.zip'
+      artifactName: 'trace-logs'
+    displayName: 'Archive Trace Logs'
